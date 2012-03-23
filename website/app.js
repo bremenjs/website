@@ -1,5 +1,5 @@
 /*!
- * Bremen.js
+ * bremen.js
  *
  * Copyright(c) 2012 Bremen, Germany
  *
@@ -53,5 +53,7 @@ app.get('/', function (req, res) {
 });
 
 // Init the API
+require('./app/api')(app);
+
 app.listen(meta.application.port);
 console.log(meta.application.name + " listening on port %d in %s mode", app.address().port, app.settings.env);

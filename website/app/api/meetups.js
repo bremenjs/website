@@ -11,9 +11,9 @@
  * MIT Licensed
  *
  */
-require([
-	'vendor/libraries'
-],
-function () {
-    console.log('Bremen.js ftw!');
-});
+module.exports = function (app) {
+	
+	app.get('/meetups', function (req, res) {
+		res.send('/meetups');
+	});
+};

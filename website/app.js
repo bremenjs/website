@@ -1,0 +1,57 @@
+/*!
+ * Bremen.js
+ *
+ * Copyright(c) 2012 Bremen, Germany
+ *
+ * Authors:
+ *
+ *     Malte Legenhausen <mlegenhausen@gmail.com>
+ *     André König <andre.koenig@gmail.com>
+ *
+ * MIT Licensed
+ *
+ */
+
+var express = require('express');
+
+var app = module.exports = express.createServer();
+
+var meta = {
+    application:{
+        name:'Bremen.js - Website',
+        version:'0.1.0',
+        authors:[
+        	{name:'Malte Legenhausen', email:'mlegenhausen@gmail.com'},
+            {name:'André König', email:'andre.koenig@gmail.com'}
+        ],
+        port: process.env.PORT || 8080
+    }
+};
+
+// Configuration
+
+app.configure(function(){
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(app.router);
+    app.use(express.static(__dirname + '/app/public'));
+});
+
+app.configure('development', function(){
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+    app.use(express.errorHandler());
+});
+
+// Routes
+
+// Send the frontend to the client
+app.get('/', function (req, res) {
+	res.sendfile(__dirname + '/app/public/index.html');
+});
+
+// Init the API
+app.listen(meta.application.port);
+console.log(meta.application.name + " listening on port %d in %s mode", app.address().port, app.settings.env);

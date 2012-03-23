@@ -59,4 +59,14 @@ td{vertical-align:top;}
 .clearfix:before,.clearfix:after{content:"";display:table;}
 .clearfix:after{clear:both;}
 .clearfix{*zoom:1;}
-@media print{*{background:transparent !important;color:black !important;box-shadow:none !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important;} a,a:visited{text-decoration:underline;} a[href]:after{content:" (" attr(href) ")";} abbr[title]:after{content:" (" attr(title) ")";} .ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:"";} pre,blockquote{border:1px solid #999;page-break-inside:avoid;} thead{display:table-header-group;} tr,img{page-break-inside:avoid;} img{max-width:100% !important;} @page {margin:0.5cm;}p,h2,h3{orphans:3;widows:3;} h2,h3{page-break-after:avoid;}}
+@media print{*{background:transparent !important;color:black !important;box-shadow:none !important;text-shadow:none !important;filter:none !important;-ms-filter:none !important;} a,a:visited{text-decoration:underline;} a[href]:after{content:" (" attr(href) ")";} abbr[title]:after{content:" (" attr(title) ")";} .ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:"";} pre,blockquote{border:1px solid #999;page-break-inside:avoid;} thead{display:table-header-group;} tr,img{page-break-inside:avoid;} img{max-width:100% !important;} @page {margin:0.5cm;}p,h2,h3{orphans:3;widows:3;} h2,h3{page-break-after:avoid;}}.font-monospace{font-family:'monospace','courier new';}
+html,body{height:100%;width:100%;}
+.viewport{margin:0 auto;width:960px;}
+body{background:#f3f3f3;}body>header{background:#fff;border-bottom:1px solid #dadada;padding-top:80px;}body>header hgroup{padding-bottom:25px;position:relative;font-family:'monospace','courier new';margin:0 auto;width:960px;}body>header hgroup h1,body>header hgroup h2{left:95px;}
+body>header hgroup h1{display:inline-block;font-size:120%;font-weight:bold;margin:0;padding:0;position:absolute;top:16px;}
+body>header hgroup h2{font-size:65%;font-weight:normal;top:35px;position:absolute;opacity:.7;}
+body>header hgroup h3{background:#048CCC;border-radius:5px;color:#fff;display:inline-block;font-size:90%;padding:15px;}
+body>#main{margin:0 auto;margin:0 auto;width:960px;}
+article{color:#333;margin-top:70px;}article header .chapter{color:#000;}
+article header h1{font-size:215%;font-weight:normal;}
+article p{text-shadow:1px 1px 0 rgba(255, 255, 255, 0.7);}

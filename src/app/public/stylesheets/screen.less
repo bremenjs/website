@@ -14,11 +14,73 @@
 @import "normalize.less";
 @import "colors.less";
 @import "fonts.less";
-
-@viewport-width:960px;
+@import "mixins.less";
 
 html, body {
 	height:100%;
 	width:100%;
 }
 
+/* =============================================================================
+   Classes
+   ========================================================================== */
+
+article.chapter {
+	color:@textcolor-chapter-content;
+
+	> header {
+		> h1 {
+			color:@textcolor-chapter-headline;
+		}
+	}
+	
+
+	> section.talk { /* A talk is a presentation, a workshop or something else with a speaker. */
+		> header {
+			> hgroup {
+				h1 {
+					color:@textcolor-chapter-talk-headline;
+				}
+
+				h2 { /* The talk type (the little label) */
+					background:@bgcolor-chapter-talk-type;
+					color:@textcolor-chapter-talk-type;
+				}
+			}
+
+			.speaker {
+				color:@textcolor-chapter-talk-author;
+			}
+		}
+
+		> p { /* The talk description */
+
+		}
+
+	}
+}
+
+/* =============================================================================
+   Basic layout declarations
+   ========================================================================== */
+
+body {
+	background:@bgcolor-body;
+	
+	> header {
+		.viewport;
+	}
+
+	> #main {
+		.viewport;
+	}
+
+	> footer {
+
+	}
+}
+
+
+/*
+ * Chapter declarations
+ */

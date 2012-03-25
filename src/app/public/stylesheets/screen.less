@@ -1,5 +1,5 @@
 /*!
- * bremen.js
+ * Bremen.js
  *
  * Copyright(c) 2012 Bremen, Germany
  *
@@ -38,8 +38,13 @@ article.chapter {
 			color:@textcolor-chapter-headline;
 			font-size:310%;
 			font-weight:normal;
-			margin-bottom:20px;
+			margin:80px 0 20px;
 			text-transform:uppercase;
+		}
+
+		> .meta { /* The chapter meta data (time, location) */
+			margin:35px 0 60px;
+			padding:0;
 		}
 	}
 
@@ -48,41 +53,58 @@ article.chapter {
 		line-height:2em;
 	}
 
-	> section.talk { /* A talk is a presentation, a workshop or something else with a speaker. */
-		@indent-left:370px;
+	> .agenda {
+		margin-top:120px;
 
-		> header {
-			padding-left:@indent-left;
-			position:relative;
+		> section { /* A talk is a presentation, a workshop or something else with a speaker. */
+			@indent-left:370px;
+			margin-bottom:100px;
 
-			> hgroup {
+			&:last-child {
+				margin-bottom:0;
+			}
 
-				h1 {
-					color:@textcolor-chapter-talk-headline;
+			> header {
+				margin-bottom:40px;
+				padding-left:@indent-left;
+				position:relative;
+
+				> hgroup {
+					h1 {
+						color:@textcolor-chapter-talk-headline;
+						font-weight:normal;
+						font-size:220%;
+						margin-bottom:20px;
+					}
+
+					h2 { /* The talk type (the little label) */
+						background:@bgcolor-chapter-talk-type;
+						color:@textcolor-chapter-talk-type;
+						font-size:90%;
+						font-weight:normal;
+						padding:5px 20px 5px 0;
+						position:absolute;
+						left:0;
+						text-align:right;
+						text-shadow:none;
+						text-transform:uppercase;
+						top:10px;
+						width:@indent-left - 150;
+					}
 				}
 
-				h2 { /* The talk type (the little label) */
-					background:@bgcolor-chapter-talk-type;
-					color:@textcolor-chapter-talk-type;
-					font-size:90%;
-					padding:5px 20px 5px 0;
-					position:absolute;
-					left:0;
-					text-align:right;
-					top:0;
-					width:@indent-left - 150;
+				.speaker {
+					color:@textcolor-chapter-talk-author;
+					display:block;
 				}
 			}
 
-			.speaker {
-				color:@textcolor-chapter-talk-author;
+			> p { /* The talk description */
+				font-size:85%;
+				padding-left:@indent-left;
+				line-height:2em;
 			}
 		}
-
-		> p { /* The talk description */
-			padding-left:@indent-left;
-		}
-
 	}
 }
 
@@ -92,6 +114,7 @@ article.chapter {
 
 body {
 	background:@bgcolor-body;
+	.text-shadow;
 	
 	> header {
 		.viewport;
@@ -102,7 +125,13 @@ body {
 	}
 
 	> footer {
-
+		outline:1px solid @bordercolor-footer-delimiterline-firstline;
+		border-top:1px solid @bordercolor-footer-delimiterline-secondline;
+		bottom:0;
+		left:0;
+		margin-top:80px;
+		position:relative;
+		width:100%;
 	}
 }
 

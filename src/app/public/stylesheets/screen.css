@@ -462,6 +462,12 @@ td {
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'ModernPictograms';
+  src: url('fonts/modernpictograms.otf');
+  font-weight: normal;
+  font-style: normal;
+}
 .font-roboto-light {
   font-family: 'RobotoLight', Arial, sans-serif;
 }
@@ -471,8 +477,14 @@ td {
 .font-raphael {
   font-family: 'RaphaelIcons';
 }
+.font-modernpictograms {
+  font-family: 'ModernPictograms';
+}
 .font-courier {
   font-family: 'Courier';
+}
+.font-tahoma {
+  font-family: 'Tahoma', arial, sans-serif;
 }
 /*!
  * Bremen.js
@@ -758,9 +770,60 @@ body > #main {
   width: 960px;
 }
 body > footer {
+  display: none;
   outline: 1px solid #d1d1cf;
   border-top: 1px solid #f4f4f4;
   bottom: 0;
+  padding: 20px 0;
   position: fixed;
   width: 100%;
+}
+body > footer .social {
+  text-align: right;
+}
+body > footer .social > ul li {
+  display: inline-block;
+  margin-left: 20px;
+}
+body > footer .social > ul li a {
+  color: #8f8f8f;
+  display: block;
+  text-decoration: none;
+}
+body > footer .social > ul li a:before {
+  display: block;
+  font-size: 200%;
+}
+body > footer .social > ul li a:hover {
+  color: #7c7c7b;
+}
+body > footer .social > ul li a span {
+  display: none;
+}
+body > footer .social > ul li.twitter a:before {
+  font-family: 'ModernPictograms';
+  content: 'T';
+  display: inline-block;
+}
+body > footer .social > ul li.facebook a:before {
+  font-family: 'ModernPictograms';
+  content: 'F';
+  display: inline-block;
+}
+body > footer .social > ul li.github a {
+  line-height: 20px;
+}
+body > footer .social > ul li.github a:before {
+  font-family: 'RaphaelIcons';
+  content: 'U';
+  display: inline-block;
+}
+body > footer .copyright {
+  color: #848481;
+  font-size: 11px;
+  text-align: right;
+  font-family: 'Tahoma', arial, sans-serif;
+}
+body > footer .copyright a {
+  color: #848481;
 }

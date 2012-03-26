@@ -301,10 +301,80 @@ body {
 	}
 
 	> footer {
+		display:none;
 		outline:1px solid @bordercolor-footer-delimiterline-firstline;
 		border-top:1px solid @bordercolor-footer-delimiterline-secondline;
 		bottom:0;
+		padding:20px 0;
 		position:fixed;
 		width:100%;
+
+		.social {
+			text-align:right;
+
+			> ul {
+				li {
+				    display:inline-block;
+				    margin-left:20px;
+
+				    a {
+				    	color:@textcolor-footer-social;
+				    	display:block;
+				    	text-decoration:none;
+
+				    	&:before {
+				    		display:block;
+				    		font-size:200%;
+				    	}
+
+				    	&:hover {
+				    		color:@textcolor-footer-social-hover;
+				    	}
+
+				    	span {
+				    		display:none;
+				    	}
+				    }
+
+				    &.twitter {
+				    	a {
+				    		&:before {
+				    		    .modernpictogram('T');
+				    		}
+				    	}
+				    }
+
+				    &.facebook {
+				    	a {
+				    		&:before {
+				    		    .modernpictogram('F');
+				    		}
+				    	}
+				    }
+
+				    &.github {
+				    	a {
+				    		line-height:20px;
+
+				    		&:before {
+				    			.raphaelicon('U');
+				    		}
+				    		
+				    	}
+				    }
+				}
+			}
+		}
+
+		.copyright {
+			color:@textcolor-footer-coyright;
+			font-size:11px;
+			text-align:right;
+			.font-tahoma;
+
+			a {
+				color:@textcolor-footer-coyright;
+			}
+		}
 	}
 }

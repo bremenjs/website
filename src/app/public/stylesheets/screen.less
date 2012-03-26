@@ -36,10 +36,6 @@ time {
 	
 }
 
-/* =============================================================================
-   Classes
-   ========================================================================== */
-
 .location {
 	position:relative;
 
@@ -49,7 +45,115 @@ time {
 	}
 }
 
-article.chapter {
+
+/* =============================================================================
+   Info slider
+   ========================================================================== */
+
+a[href='#info'] {
+	background:@bgcolor-info;
+	border:1px solid @bordercolor-info;
+	color:@textcolor-info-content;
+	display:block;
+	font-size:70%;
+	font-weight:normal;
+	position:absolute;
+	right:0;
+	border-top:none;
+	padding:5px 30px 5px 10px;
+	text-decoration:none;
+	text-shadow: none;
+	z-index:3;
+	.font-courier;
+
+	&:after {
+		background:@bgcolor-info-button-icon-active;
+		border:none;
+		border-radius:3px;
+		bottom:3px;
+		color:@textcolor-info-button-icon-active;
+		display:inline-block;
+		font-size:180%;
+		line-height:1em;
+		padding:0 3px;
+		position:absolute;
+		right:5px;
+		top:3px;
+		.raphaelicon('Ì');
+	}
+}
+
+.info-slider-on {
+	a[href='#info'] {
+		background:@bgcolor-info-button-inactive;
+		color:@textcolor-info-button-inactive;
+
+		&:after {
+			background:@bgcolor-info-button-icon-inactive;
+			color:@textcolor-info-button-icon-inactive;
+			.raphaelicon('Ë');
+		}
+	}
+
+	> header {
+		> hgroup {
+			&:before {
+				background:url(img/bg-logo-inverted.png);
+			}
+
+			h1 { /* The logo */
+				color:#fff;
+				text-shadow:none;
+			}
+
+			h2 {
+				border-left:2px solid #fff;
+				color:#fff;
+				text-shadow:none;
+			}
+		}
+	}
+}
+
+#info-slider {
+	background:@bgcolor-info;
+	border-bottom:1px solid @bordercolor-info;
+	color:white;
+	display:none;
+	font-size: 90%;
+	left:0;
+	line-height:1.7em;
+	padding-top:160px;
+	position:absolute;
+	text-shadow:none;
+	top:0;
+	width:100%;
+	z-index:1;
+
+	> section {
+		color:@bgcolor-body;
+		padding-bottom:50px;
+		.viewport;
+
+		> header {
+			h1 {
+				color:@textcolor-info-headline;
+				margin-bottom:40px;
+			}
+		}
+
+		a {
+			color:#fff;
+		}
+	}
+}
+
+
+/* =============================================================================
+   Chapter declarations
+   ========================================================================== */
+
+#chapter {
 	color:@textcolor-chapter-content;
 	height:100%;
 	padding-left:70px;
@@ -154,10 +258,12 @@ body {
 		top:35px;
 		position:absolute;
 		width:100%;
+		z-index:2;
 
 		> hgroup {
 			font-size:55%;
-			position: relative;
+			position:relative;
+			z-index:1;
 			.viewport;
 
 
@@ -190,6 +296,7 @@ body {
 
 	> #main {
 		height:100%;
+		position:relative;
 		.viewport;
 	}
 

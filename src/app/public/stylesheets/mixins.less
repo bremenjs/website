@@ -22,3 +22,13 @@
 	text-shadow:0 1px 0 #fff;
 	filter:dropshadow(color=#ffffff, offx=0, offy=1);
 }
+
+.icon(@chr) {
+	content:@chr;
+	display:block;
+}
+
+.raphaelicon(@chr) {
+    .font-raphael;
+	.icon(@chr);
+}

@@ -12,7 +12,7 @@
  *
  */
 require([
-    'vendor/order!vendor/libraries'
+    'vendor/libraries'
 ], function () {
     var activeClass = 'info-slider-on',
         nodes = {
@@ -25,7 +25,7 @@ require([
 
     nodes.toogle.on('click', function (event) {
         if (nodes.body.hasClass(activeClass)) {
-            nodes.logo.fadeOut(100);
+            nodes.logo.fadeOut(50);
             nodes.slider.animate({
                 height: '+=50'
             }, 400, function() {

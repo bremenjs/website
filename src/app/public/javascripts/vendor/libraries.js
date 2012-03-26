@@ -11,7 +11,7 @@
  * MIT Licensed
  *
  */
-define([ 
-    'vendor/underscore',
-    'vendor/jquery'
+define([
+	'vendor/order!vendor/jquery',
+    'vendor/order!vendor/underscore'
 ]);

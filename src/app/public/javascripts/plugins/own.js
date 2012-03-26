@@ -12,5 +12,6 @@
  *
  */
 define([ 
-    'plugins/infoslidr',
+    'vendor/order!plugins/infoslidr',
+    'vendor/order!plugins/footr'
 ]);

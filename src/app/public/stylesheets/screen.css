@@ -657,7 +657,7 @@ a[href='#info']:after {
   margin-bottom: 120px;
 }
 #chapter > .agenda {
-  padding-bottom: 100px;
+  padding-bottom: 150px;
 }
 #chapter > .agenda > section {
   /* A talk is a presentation, a workshop or something else with a speaker. */
@@ -760,6 +760,7 @@ body > #main {
 body > footer {
   outline: 1px solid #d1d1cf;
   border-top: 1px solid #f4f4f4;
-  display: none;
+  bottom: 0;
+  position: fixed;
   width: 100%;
 }

@@ -12,6 +12,5 @@
  *
  */
 define([ 
-    'vendor/underscore',
-    'vendor/jquery'
+    'plugins/infoslidr',
 ]);

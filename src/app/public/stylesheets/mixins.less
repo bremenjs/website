@@ -1,0 +1,39 @@
+/*!
+ * Bremen.js
+ *
+ * Copyright(c) 2012 Bremen, Germany
+ *
+ * Authors:
+ *
+ *     Malte Legenhausen <mlegenhausen@gmail.com>
+ *     André König <andre.koenig@gmail.com>
+ *
+ * MIT Licensed
+ *
+ */
+@viewport-width:960px;
+
+.viewport {
+	margin:0 auto;
+	width:@viewport-width;
+}
+
+.text-shadow {
+	text-shadow:0 1px 0 #fff;
+	filter:dropshadow(color=#ffffff, offx=0, offy=1);
+}
+
+.icon(@chr) {
+	content:@chr;
+	display:inline-block;
+}
+
+.raphaelicon(@chr) {
+    .font-raphael;
+	.icon(@chr);
+}
+
+.modernpictogram(@chr) {
+    .font-modernpictograms;
+	.icon(@chr);
+}

@@ -1,0 +1,380 @@
+/*!
+ * Bremen.js
+ *
+ * Copyright(c) 2012 Bremen, Germany
+ *
+ * Authors:
+ *
+ *     Malte Legenhausen <mlegenhausen@gmail.com>
+ *     André König <andre.koenig@gmail.com>
+ *
+ * MIT Licensed
+ *
+ */
+@import "normalize.less";
+@import "colors.less";
+@import "fonts.less";
+@import "mixins.less";
+
+html, body {
+	height:100%;
+	width:100%;
+}
+
+h1, h2, h3, h4, h5 {
+	margin:0;
+	padding:0;
+}
+
+time {
+	position:relative;
+
+	&:before {
+		.raphaelicon('4');
+		margin-right:10px;
+	}
+	
+}
+
+.location {
+	position:relative;
+
+	&:before {
+		.raphaelicon('o');
+		margin-right:10px;
+	}
+}
+
+
+/* =============================================================================
+   Info slider
+   ========================================================================== */
+
+a[href='#info'] {
+	background:@bgcolor-info;
+	border:1px solid @bordercolor-info;
+	color:@textcolor-info-content;
+	display:block;
+	font-size:70%;
+	font-weight:normal;
+	position:absolute;
+	right:0;
+	border-top:none;
+	padding:5px 30px 5px 10px;
+	text-decoration:none;
+	text-shadow: none;
+	z-index:3;
+	.font-courier;
+
+	&:after {
+		background:@bgcolor-info-button-icon-active;
+		border:none;
+		border-radius:3px;
+		bottom:3px;
+		color:@textcolor-info-button-icon-active;
+		display:inline-block;
+		font-size:180%;
+		line-height:1em;
+		padding:0 3px;
+		position:absolute;
+		right:5px;
+		top:3px;
+		.raphaelicon('Ì');
+	}
+}
+
+.info-slider-on {
+	a[href='#info'] {
+		background:@bgcolor-info-button-inactive;
+		color:@textcolor-info-button-inactive;
+
+		&:after {
+			background:@bgcolor-info-button-icon-inactive;
+			color:@textcolor-info-button-icon-inactive;
+			.raphaelicon('Ë');
+		}
+	}
+
+	> header {
+		> hgroup {
+			&:before {
+				background:url(img/bg-logo-inverted.png);
+			}
+
+			h1 { /* The logo */
+				color:#fff;
+				text-shadow:none;
+			}
+
+			h2 {
+				border-left:2px solid #fff;
+				color:#fff;
+				text-shadow:none;
+			}
+		}
+	}
+}
+
+#info-slider {
+	background:@bgcolor-info;
+	border-bottom:1px solid @bordercolor-info;
+	color:white;
+	display:none;
+	font-size: 90%;
+	left:0;
+	line-height:1.7em;
+	padding-top:160px;
+	position:absolute;
+	text-shadow:none;
+	top:0;
+	width:100%;
+	z-index:1;
+
+	> section {
+		color:@bgcolor-body;
+		padding-bottom:50px;
+		.viewport;
+
+		> header {
+			h1 {
+				color:@textcolor-info-headline;
+				margin-bottom:40px;
+			}
+		}
+
+		a {
+			color:#fff;
+		}
+	}
+}
+
+
+/* =============================================================================
+   Chapter declarations
+   ========================================================================== */
+
+#chapter {
+	color:@textcolor-chapter-content;
+	height:100%;
+	padding-left:70px;
+
+	> header {
+		height:100%;
+		position:relative;
+
+		> h1, .meta {
+			position:absolute;
+		}
+
+		> h1 { /* The chapter title. */
+			bottom:100px;
+			color:@textcolor-chapter-headline;
+			font-size:310%;
+			font-weight:normal;
+			text-transform:uppercase;
+		}
+
+		> .meta { /* The chapter meta data (time, location) */
+			bottom:20px;
+			padding:0;
+
+			time {
+				margin-right:20px;
+			}
+		}
+	}
+
+	> p { /* The chapter description. */
+		font-size:95%;
+		line-height:2em;
+		margin-bottom:120px;
+	}
+
+	> .agenda {
+		padding-bottom:150px;
+
+		> section { /* A talk is a presentation, a workshop or something else with a speaker. */
+			@indent-left:350px;
+			margin-bottom:100px;
+
+			&:last-child {
+				margin-bottom:0;
+			}
+
+			> header {
+				margin-bottom:40px;
+				padding-left:@indent-left;
+				position:relative;
+
+				> hgroup {
+					h1 {
+						color:@textcolor-chapter-talk-headline;
+						font-weight:normal;
+						font-size:220%;
+						margin-bottom:20px;
+					}
+
+					h2 { /* The talk type (the little label) */
+						background:@bgcolor-chapter-talk-type;
+						color:@textcolor-chapter-talk-type;
+						font-size:90%;
+						font-weight:normal;
+						padding:5px 20px 5px 0;
+						position:absolute;
+						left:0;
+						text-align:right;
+						text-shadow:none;
+						text-transform:uppercase;
+						top:10px;
+						width:@indent-left - 150;
+					}
+				}
+
+				.speaker {
+					color:@textcolor-chapter-talk-author;
+					display:block;
+				}
+			}
+
+			> p { /* The talk description */
+				font-size:85%;
+				padding-left:@indent-left;
+				line-height:2em;
+			}
+		}
+	}
+}
+
+/* =============================================================================
+   Basic layout declarations
+   ========================================================================== */
+
+body {
+	background:@bgcolor-body;
+	.font-roboto-light;
+	.text-shadow;
+	
+	> header {
+		top:35px;
+		position:absolute;
+		width:100%;
+		z-index:2;
+
+		> hgroup {
+			font-size:55%;
+			position:relative;
+			z-index:1;
+			.viewport;
+
+
+			&:before {
+				background:url(img/bg-logo.png) left top no-repeat;
+				content:"";
+				display:block;
+				height:50px;
+				left:0;
+				top:0;
+				position:absolute;
+				width:50px;
+			}
+
+			h1 { /* The logo */
+				color:@textcolor-header-title;
+				display:inline-block;
+				margin:25px 10px 0 70px;
+			}
+
+			h2 {
+				border-left:2px solid @bordercolor-header-delimiter;
+				color:@textcolor-header-subtitle;
+				display:inline-block;
+				font-weight:normal;
+				padding-left:10px;
+			}
+		}
+	}
+
+	> #main {
+		height:100%;
+		position:relative;
+		.viewport;
+	}
+
+	> footer {
+		display:none;
+		outline:1px solid @bordercolor-footer-delimiterline-firstline;
+		border-top:1px solid @bordercolor-footer-delimiterline-secondline;
+		bottom:0;
+		padding:20px 0;
+		position:fixed;
+		width:100%;
+
+		.social {
+			text-align:right;
+
+			> ul {
+				li {
+				    display:inline-block;
+				    margin-left:20px;
+
+				    a {
+				    	color:@textcolor-footer-social;
+				    	display:block;
+				    	text-decoration:none;
+
+				    	&:before {
+				    		display:block;
+				    		font-size:200%;
+				    	}
+
+				    	&:hover {
+				    		color:@textcolor-footer-social-hover;
+				    	}
+
+				    	span {
+				    		display:none;
+				    	}
+				    }
+
+				    &.twitter {
+				    	a {
+				    		&:before {
+				    		    .modernpictogram('T');
+				    		}
+				    	}
+				    }
+
+				    &.facebook {
+				    	a {
+				    		&:before {
+				    		    .modernpictogram('F');
+				    		}
+				    	}
+				    }
+
+				    &.github {
+				    	a {
+				    		line-height:14px;
+
+				    		&:before {
+				    			.raphaelicon('U');
+				    		}
+				    		
+				    	}
+				    }
+				}
+			}
+		}
+
+		.copyright {
+			color:@textcolor-footer-coyright;
+			font-size:11px;
+			text-align:right;
+			.font-tahoma;
+
+			a {
+				color:@textcolor-footer-coyright;
+			}
+		}
+	}
+}

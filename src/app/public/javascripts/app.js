@@ -12,7 +12,8 @@
  *
  */
 require([
-	'vendor/libraries'
+	'vendor/order!vendor/libraries',
+	'vendor/order!plugins/own'
 ],
 function () {
     console.log('Bremen.js ftw!');

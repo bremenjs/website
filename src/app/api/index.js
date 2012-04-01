@@ -11,8 +11,8 @@
  * MIT Licensed
  *
  */
-module.exports = function (app) {
+module.exports = function (app, list, mapping) {
 
-	require('./meetups')(app);
+	require('./meetups')(app, list, mapping);
 
 };

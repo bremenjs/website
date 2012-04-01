@@ -11,9 +11,23 @@
  * MIT Licensed
  *
  */
-module.exports = function (app) {
+
+var path = require('path');
+
+var _ = require('underscore');
+
+module.exports = function (app, repo) {
 	
 	app.get('/meetups', function (req, res) {
-		res.send('/meetups');
+		res.send(repo.index());
+	});
+
+	app.get('/meetup/:id', function (req, res) {
+		res.send(repo.get(req.params.id));
+	});
+
+	app.get('/meetup/:id/file/*', function(req, res) {
+		var root = repo.path(req.params.id);
+		res.sendfile(path.join(root, _.first(req.params)));
 	});
 };

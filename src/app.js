@@ -18,6 +18,9 @@ var path = require('path');
 var _ = require('underscore');
 var async = require('async');
 var express = require('express');
+var winston = require('winston');
+
+var Repository = require('./app/repo');
 
 var app = module.exports = express.createServer();
 
@@ -33,44 +36,8 @@ var meta = {
     }
 };
 
-var CHAPTER_PATH = process.env.CHAPTERS || process.cwd(), CHAPTERS = {};
-
-// Load all chapters
-console.log('Loading chapters...');
-fs.readdir(CHAPTER_PATH, function(err, files) {
-    if (err) return console.error(err);
-    async.map(files, function(file, callback) {
-        fs.stat(file, function(err, stat) {
-            if (err) return callback(err);
-            var manifest;
-            if (stat.isDirectory() && file[0] !== '.') {
-                manifest = path.join(CHAPTER_PATH, file, 'chapter.json');
-                // Check if a chapter.json exists
-                path.exists(manifest, function(exists) {
-                    if (exists) {
-                        // look for chapter.json
-                        fs.open(manifest, 'r', function(err, data) {
-                            if (err) return callback(err);
-                            var chapter = JSON.parse(data);
-                            console.log('Chapter ' + chapter.id + ' wurde geladen.');
-                            return callback(null, chapter);
-                        });
-                    } else {
-                        console.log('Unable to find chapter file ', manifest);
-                        return callback();
-                    }
-                });
-            } else {
-                return callback();
-            }
-        });
-    }, function(err, chapters) {
-        if (err) return console.error(err);
-        chapters = _.compact(chapters);
-        CHAPTERS = _.groupBy(chapters, 'id');
-        console.log('Chapters loading finished.');
-    });
-});
+// Init the chapter repository
+var CHAPTER_ROOT = process.env.CHAPTERS || process.cwd(), repo = new Repository(CHAPTER_ROOT);
 
 // Configuration
 
@@ -96,12 +63,8 @@ app.get('/', function (req, res) {
 	res.sendfile(__dirname + '/app/public/index.html');
 });
 
-app.get('/chapters', function(req, res) {
-    res.send(_.keys(CHAPTERS));
-});
-
 // Init the API
-require('./app/api')(app);
+require('./app/api')(app, repo);
 
 app.listen(meta.application.port);
 console.log(meta.application.name + " listening on port %d in %s mode", app.address().port, app.settings.env);

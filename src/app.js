@@ -60,7 +60,8 @@ app.configure('production', function(){
 
 // Send the frontend to the client
 app.get('/', function (req, res) {
-	res.sendfile(__dirname + '/app/public/index.html');
+    res.redirect('https://plus.google.com/109791724606817042533/about');
+//	res.sendfile(__dirname + '/app/public/index.html');
 });
 
 // Init the API

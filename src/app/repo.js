@@ -1,3 +1,17 @@
+/*!
+ * bremen.js
+ *
+ * Copyright(c) 2012 Bremen, Germany
+ *
+ * Authors:
+ *
+ *     Malte Legenhausen <mlegenhausen@gmail.com>
+ *     André König <andre.koenig@gmail.com>
+ *
+ * MIT Licensed
+ *
+ */
+
 var fs = require('fs');
 var path = require('path');
 
@@ -28,11 +42,15 @@ Repository.prototype.load = function(callback) {
 	// Load all chapters
 	fs.readdir(self.root, function(err, files) {
 	    if (err) return winston.error(err);
+
 	    async.map(files, function(file, callback) {
-	        fs.stat(file, function(err, stat) {
+
+	        fs.stat(self.root + '/' + file, function(err, stat) {
 	            if (err) return callback(err);
+
 	            var dir = path.join(self.root, file), manifest;
-	            if (stat.isDirectory() && file[0] !== '.') {
+
+	            if (stat.isDirectory() && file[0].indexOf('.') !== 1 ) {
 	                manifest = path.join(dir, 'chapter.json');
 	                // Check if a chapter.json exists
 	                path.exists(manifest, function(exists) {

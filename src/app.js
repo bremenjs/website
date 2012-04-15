@@ -15,7 +15,6 @@
 var fs = require('fs');
 var path = require('path');
 
-var _ = require('underscore');
 var async = require('async');
 var express = require('express');
 var winston = require('winston');
@@ -37,7 +36,8 @@ var meta = {
 };
 
 // Init the chapter repository
-var CHAPTER_ROOT = process.env.CHAPTERS || process.cwd(), repo = new Repository(CHAPTER_ROOT);
+var CHAPTER_ROOT = process.env.CHAPTERS || process.cwd(),
+    repo = new Repository(CHAPTER_ROOT);
 
 // Configuration
 
@@ -60,8 +60,8 @@ app.configure('production', function(){
 
 // Send the frontend to the client
 app.get('/', function (req, res) {
-    res.redirect('https://plus.google.com/109791724606817042533/about');
-//	res.sendfile(__dirname + '/app/public/index.html');
+    //res.redirect('https://plus.google.com/109791724606817042533/about');
+    res.sendfile(__dirname + '/app/public/index.html');
 });
 
 // Init the API

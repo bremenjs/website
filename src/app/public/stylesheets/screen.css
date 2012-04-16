@@ -486,6 +486,9 @@ td {
 .font-tahoma {
   font-family: 'Tahoma', arial, sans-serif;
 }
+.font-helvetica {
+  font-family: helvetica, 'Helvetica Neue', arial, sans-serif;
+}
 /*!
  * Bremen.js
  *
@@ -721,6 +724,7 @@ a[href='#info']:after {
 #chapter > .agenda > section > header .speaker {
   color: #2e2e2e;
   display: block;
+  font-family: 'Tahoma', arial, sans-serif;
 }
 #chapter > .agenda > section > p {
   /* The talk description */

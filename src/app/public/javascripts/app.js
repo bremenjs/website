@@ -67,7 +67,7 @@ function (backend, templateSource) {
 				details.topics[i].description = markdownDownloader(details.topics[i].description);
 			}
 
-			// Downloading all markdown files in a serie.
+			// Download all markdown files in a serie.
 			async.series(batch, function () {
 				// Push the markdown into the object for the template.
 				details.description = details.description.markdownToHTML();

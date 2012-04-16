@@ -12,6 +12,8 @@
  *
  */
 define([
+	'vendor/order!vendor/async',
 	'vendor/order!vendor/jquery',
-    'vendor/order!vendor/underscore'
+    'vendor/order!vendor/underscore',
+    'vendor/order!vendor/markdown'
 ]);

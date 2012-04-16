@@ -1,5 +1,5 @@
 /*!
- * bremen.js
+ * Bremen.js
  *
  * Copyright(c) 2012 Bremen, Germany
  *
@@ -28,6 +28,7 @@ module.exports = function (app, repo) {
 
 	app.get('/meetup/:id/file/*', function(req, res) {
 		var root = repo.path(req.params.id);
+
 		res.sendfile(path.join(root, _.first(req.params)));
 	});
 };

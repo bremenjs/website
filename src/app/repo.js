@@ -1,5 +1,5 @@
 /*!
- * bremen.js
+ * Bremen.js
  *
  * Copyright(c) 2012 Bremen, Germany
  *

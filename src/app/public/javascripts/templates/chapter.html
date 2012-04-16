@@ -1,0 +1,27 @@
+<article id="chapter">
+	<header>
+		<h1><span>#<%= chapter.no %></span> <%= chapter.title %></h1>
+
+		<p class="meta"><time><%= chapter.date %></time>
+		<span class="location"><%= chapter.location %></span></p>
+	</header>
+
+	<p><%= chapter.description %></p>
+
+	<div class="agenda">
+		<% chapter.topics.forEach(function(topic) { %>
+			<section>
+				<header>
+					<hgroup>
+						<h1><%= topic.title %></h1>
+						<h2><%= topic.type%></h2>
+					</hgroup>
+
+					<span class="speaker">von <a href="<%= topic.speaker.contact %>"><%= topic.speaker.name.first %> <%= topic.speaker.name.last %></a></span>
+				</header>
+
+				<p><%= topic.description %></p>
+			</section>
+		<% }); %>
+	</div>
+</article>

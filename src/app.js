@@ -40,12 +40,14 @@ var CHAPTER_ROOT = process.env.CHAPTERS || process.cwd(),
     repo = new Repository(CHAPTER_ROOT);
 
 // Configuration
+console.log(CHAPTER_ROOT);
 
 app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(__dirname + '/app/public'));
+    app.use(express.static(CHAPTER_ROOT));
 });
 
 app.configure('development', function(){

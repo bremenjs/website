@@ -132,7 +132,7 @@ a[href='#info'] {
 #info-slider {
 	background:@bgcolor-info;
 	border-bottom:1px solid @bordercolor-info;
-	color:white;
+	color:#fff;
 	display:none;
 	font-size: 90%;
 	left:0;
@@ -145,7 +145,7 @@ a[href='#info'] {
 	z-index:1;
 
 	> section {
-		color:@bgcolor-body;
+		color:#fff;
 		padding-bottom:50px;
 		.viewport;
 
@@ -247,14 +247,16 @@ a[href='#info'] {
 				.speaker {
 					color:@textcolor-chapter-talk-author;
 					display:block;
-					.font-tahoma;
+					.font-helvetica;
 				}
 			}
 
 			> p { /* The talk description */
 				font-size:85%;
 				padding-left:@indent-left;
-				line-height:2em;
+				line-height:2.2em;
+				.font-helvetica;
+				font-weight:lighter;
 			}
 
 			> ul.assets {
@@ -262,6 +264,40 @@ a[href='#info'] {
 				list-style-type:none;
 				margin-top:35px;
 				padding-left:@indent-left;
+
+				li {
+					padding:5px 0;
+
+					&:before {
+						content:'';
+						display:block;
+						font-size:160%;
+						opacity:.8;
+						width:30px;
+					}
+
+					a {
+						font-size:90%;
+					}
+				}
+
+				.video {
+					&:before {
+						.modernpictogram('P');
+				    }
+				}
+
+				.slides {
+					&:before {
+						.modernpictogram('S');
+				    }
+				}
+
+				.examples {
+					&:before {
+						.modernpictogram('B');
+				    }
+				}
 			}
 		}
 	}
@@ -337,7 +373,7 @@ body {
 			> ul {
 				li {
 				    display:inline-block;
-				    margin-left:20px;
+				    margin-left:10px;
 
 				    a {
 				    	color:@textcolor-footer-social;
@@ -346,7 +382,7 @@ body {
 
 				    	&:before {
 				    		display:block;
-				    		font-size:200%;
+				    		font-size:175%;
 				    	}
 
 				    	&:hover {
@@ -361,15 +397,35 @@ body {
 				    &.twitter {
 				    	a {
 				    		&:before {
-				    		    .modernpictogram('T');
+				    		    .modernpictogram('U');
 				    		}
 				    	}
+				    }
+
+				    &.gplus {
+				    	a {
+				    		background:url(img/social-gplus.png) top left;
+				    		height:18px;
+				    		width:18px;
+				    	}
+
+			    		a:hover {
+			    			background-position:top right;
+			    		}
 				    }
 
 				    &.facebook {
 				    	a {
 				    		&:before {
-				    		    .modernpictogram('F');
+				    		    .modernpictogram('G');
+				    		}
+				    	}
+				    }
+
+				    &.youtube {
+				    	a {
+				    		&:before {
+				    		    .modernpictogram('P');
 				    		}
 				    	}
 				    }
@@ -391,7 +447,8 @@ body {
 		.copyright {
 			color:@textcolor-footer-coyright;
 			font-size:11px;
-			text-align:right;
+			position:absolute;
+			top:20px;
 			.font-tahoma;
 
 			a {

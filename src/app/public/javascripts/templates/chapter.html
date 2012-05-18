@@ -21,6 +21,16 @@
 				</header>
 
 				<p><%= topic.description %></p>
+
+				<% if (topic.assets) { %>
+					<ul class="assets">
+						<% topic.assets.forEach(function(asset) { %>
+							<li class="<%= asset.type %>">
+								<a href="<%= asset.url %>"><%= asset.name %></a>
+							</li>
+						<% }); %>
+					</ul>
+				<% } %>
 			</section>
 		<% }); %>
 	</div>

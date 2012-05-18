@@ -48,6 +48,7 @@ app.configure(function(){
     app.use(app.router);
     app.use(express.staticCache());
     app.use(express.static(__dirname + '/app/public'));
+    app.use(express.static(CHAPTER_ROOT));
 });
 
 app.configure('development', function(){

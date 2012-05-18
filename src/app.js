@@ -40,7 +40,6 @@ var CHAPTER_ROOT = process.env.CHAPTERS || process.cwd(),
     repo = new Repository(CHAPTER_ROOT);
 
 // Configuration
-console.log(CHAPTER_ROOT);
 
 app.configure(function(){
     app.use(express.bodyParser());

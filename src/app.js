@@ -46,9 +46,8 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
-    app.use(express.staticCache());
     app.use(express.static(__dirname + '/app/public'));
-    app.use(express.static(CHAPTER_ROOT));
+    app.use(express.static(meta.application.chapterRoot));
 });
 
 app.configure('development', function(){

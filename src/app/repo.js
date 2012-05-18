@@ -14,6 +14,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var cp = require('child_process');
 
 var _ = require('underscore');
 var async = require('async');
@@ -29,12 +30,23 @@ Repository.prototype.init = function() {
 	this.index = [];
 	this.paths = {};
 	var self = this;
-	winston.info('Loading chapters...');
-	this.load(function(err, chapters) {
-		self.createMapping(chapters);
-	    self.createIndex(chapters);
-	    winston.info('Chapters loading finished.');
+	winston.info('Initializing repository...');
+	this.pull(function(err) {
+		if (err) return winston.error(err);
+		winston.info('Loading chapters...');
+		self.load(function(err, chapters) {
+			self.createMapping(chapters);
+		    self.createIndex(chapters);
+		    winston.info('Chapters loading finished.');
+		});
 	});
+};
+
+Repository.prototype.pull = function(callback) {
+	winston.info('Pulling from git...');
+	cp.execFile('git', ['pull'], {
+		cwd: this.root
+	}, callback);
 };
 
 Repository.prototype.load = function(callback) {

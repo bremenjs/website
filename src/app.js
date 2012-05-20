@@ -23,6 +23,7 @@ var Repository = require('./app/repo');
 
 var app = module.exports = express.createServer();
 
+// TODO: Use pkginfo
 var meta = {
     application:{
         name:'Bremen.js - Website',

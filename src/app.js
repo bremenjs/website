@@ -12,14 +12,12 @@
  *
  */
 
-var fs = require('fs');
-var path = require('path');
-
-var async = require('async');
-var express = require('express');
-var winston = require('winston');
-
-var Repository = require('./app/repo');
+var fs = require('fs')
+  , path = require('path')
+  , async = require('async')
+  , express = require('express')
+  , winston = require('winston')
+  , Repository = require('./app/repo');
 
 var app = module.exports = express.createServer();
 
@@ -27,7 +25,7 @@ var app = module.exports = express.createServer();
 var meta = {
     application:{
         name:'Bremen.js - Website',
-        version:'0.1.0',
+        version:'0.2.0',
         authors:[
         	{name:'Malte Legenhausen', email:'mlegenhausen@gmail.com'},
             {name:'André König', email:'andre.koenig@gmail.com'}

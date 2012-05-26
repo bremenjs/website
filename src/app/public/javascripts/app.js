@@ -12,17 +12,21 @@
  *
  */
 require([
+	'chapters',
 	'backend',
 	"vendor/text!templates/chapter.html",
 	'vendor/order!vendor/libraries',
 	'vendor/order!plugins/own'
 ],
-function (backend, templateSource) {
+function (chapters, backend, templateSource) {
 
-	var mainNode = $('#main'),
-	    loadingNode = $('#loading');
+	var $main, $loading, template, Router;
 
-	var template = (function () {
+	$main = $('#main');
+
+	$loading = $('#loading');
+
+	template = (function () {
 		var compiled = _.template(templateSource);
 
 		return {
@@ -32,58 +36,71 @@ function (backend, templateSource) {
 		}
 	}());
 
-	backend.get.allMeetups().then(function (ids) {
-		var firstMeetup = ids[0];
+	BremenjsRouter = Backbone.Router.extend({
+		routes: {
+			"chapters/:id": "chapters"
+		},
 
-		backend.get.oneMeetup(firstMeetup).then(function (details) {
-			details.no = 1; // Just for the first chapter.
+		chapters : function (id) {
+			chapters.getCurrent(id).then(function (details) {
+				// TOGGLE CONTROLS
 
-			var batch = [];
+				var batch = [];
 
-			var markdownDownloader = (function (filename) {
-				var result;
+				var markdownDownloader = (function (filename) {
+					var result;
 
-			    batch.push(function (callback) {
-			    	backend.get.file(filename).fromMeetup(firstMeetup)
-			    		.then(function (markdown) {
-			    			var converter = new Markdown.Converter();
-			    			result = converter.makeHtml(markdown);
+				    batch.push(function (callback) {
 
-			    		   	callback();
-			    		});
-			   	});
+				    	// TODO: Move this to the chapters abstraction.
+				    	backend.get.file(filename).fromMeetup(id)
+				    		.then(function (markdown) {
+				    			var converter = new Markdown.Converter();
+				    			result = converter.makeHtml(markdown);
 
-			   	return {
-			   		markdownToHTML: function () {
-			   			return result;
-			   		}
-			   	};
-			});
+				    		   	callback();
+				    		});
+				   	});
 
-			// Grab the markdown files from the server.
-			details.description = markdownDownloader(details.description);
+				   	return {
+				   		markdownToHTML: function () {
+				   			return result;
+				   		}
+				   	};
+				});
 
-			for (var i = 0; i < details.topics.length; i++) {
-				details.topics[i].description = markdownDownloader(details.topics[i].description);
-			}
+				// Grab the markdown files from the server.
+				details.description = markdownDownloader(details.description);
 
-			// Download all markdown files in a serie.
-			async.series(batch, function () {
-				// Push the markdown into the object for the template.
-				details.description = details.description.markdownToHTML();
 				for (var i = 0; i < details.topics.length; i++) {
-					details.topics[i].description = details.topics[i].description.markdownToHTML();
+					details.topics[i].description = markdownDownloader(details.topics[i].description);
 				}
 
-				var chapterNode = template.compile({chapter: details});
-				chapterNode.hide();
+				// Download all markdown files in a serie.
+				async.series(batch, function () {
+					// Push the markdown into the object for the template.
+					details.description = details.description.markdownToHTML();
+					for (var i = 0; i < details.topics.length; i++) {
+						details.topics[i].description = details.topics[i].description.markdownToHTML();
+					}
 
-				mainNode.append(chapterNode);
+					var $chapter = template.compile({chapter: details});
+					$chapter.hide();
 
-				loadingNode.fadeOut('slow', function () {
-					chapterNode.fadeIn();
+					$main.append($chapter);
+
+					$loading.fadeOut('slow', function () {
+						$chapter.fadeIn();
+					});
 				});
 			});
-		});
+		}
+	});
+
+	// Load all meetups
+	chapters.load().then(function () {
+		new BremenjsRouter();
+		
+		Backbone.history.start();
 	});
 });

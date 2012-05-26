@@ -15,5 +15,6 @@ define([
 	'vendor/order!vendor/async',
 	'vendor/order!vendor/jquery',
     'vendor/order!vendor/underscore',
+    'vendor/order!vendor/backbone',
     'vendor/order!vendor/markdown'
 ]);

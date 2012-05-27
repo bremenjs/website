@@ -88,10 +88,14 @@ function (backend) {
 		index = 0;
 
 		_nextId = function () {
+			console.log("next");
+			console.log(ids[index - 1]);
 			return ids[index - 1];
 		};
 
 		_previousId = function () {
+			console.log("prev");
+			console.log(ids[index + 1]);
 			return ids[index + 1];
 		};
 

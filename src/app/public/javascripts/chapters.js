@@ -16,6 +16,71 @@ define([
     'vendor/order!vendor/libraries'
 ],
 function (backend) {
+
+	function MarkdownDownloader (chapterId) {
+		var batch = [];
+
+		this.queue = function (filename) {
+			var result;
+
+			batch.push(function (callback) {
+
+	    	backend.get.file(filename).fromChapter(chapterId)
+	    		.then(function (markdown) {
+			    	var converter = new Markdown.Converter();
+			    		result = converter.makeHtml(markdown);
+
+			    		callback();
+			    	});
+				});
+
+			return {
+				toHTML: function () {
+					return result;
+				}
+			};
+		};
+
+		this.execute = function () {
+			var deferred = $.Deferred();
+			
+			async.series(batch, function () {
+				deferred.resolve();
+			});
+
+			return deferred.promise();
+		};
+	}
+
+	var helpers = {
+		downloadMarkdown : function (chapter) {
+			var deferred = $.Deferred();
+
+			// Download all markdown files.
+			var markdownDownload = new MarkdownDownloader(chapter.id);
+
+			// Grab the markdown files from the server.
+			chapter.description = markdownDownload.queue(chapter.description);
+
+			for (var i = 0; i < chapter.topics.length; i++) {
+				chapter.topics[i].description = markdownDownload.queue(chapter.topics[i].description);
+			}
+
+			// Push the markdown into the object for the template.
+			markdownDownload.execute().then(function () {
+				chapter.description = chapter.description.toHTML();
+
+				for (var i = 0; i < chapter.topics.length; i++) {
+					chapter.topics[i].description = chapter.topics[i].description.toHTML();
+				}
+
+				deferred.resolve(chapter);
+			});
+
+			return deferred.promise();
+		}
+	};
+
 	return (function () {
 
 	  	var ids = null,
@@ -25,7 +90,7 @@ function (backend) {
 	   		load : function () {
 	   			var deferred = $.Deferred();
 
-	   			backend.get.allMeetups().then(function (chapterIds) {
+	   			backend.get.allChapters().then(function (chapterIds) {
 	   				ids = chapterIds;
 
 	   				deferred.resolve();
@@ -33,11 +98,28 @@ function (backend) {
 
 	   			return deferred.promise();
 	   		},
-	   		hasNext : function () {
+	   		getNextId : function () {
 	   			return (ids[index + 1]);
 	   		},
-	   		hasPrevious : function () {
+	   		getPreviousId : function () {
 	   			return (ids[index - 1]);
+	   		},
+	   		exists : function (id) {
+	   			return (_.indexOf(ids, id) !== -1);
+	   		},
+	   		current : function () {
+	   			var deferred = $.Deferred(),
+	   			    id = _.first(ids);
+
+	   			backend.get.oneChapter(id).then(function (chapter) {
+	   				index = 0;
+
+					helpers.downloadMarkdown(chapter).then(function () {
+						deferred.resolve(chapter);
+					});
+	   			});
+
+	   			return deferred.promise();
 	   		},
 	   		get : function (id) {
 	   			var deferred = $.Deferred();
@@ -45,68 +127,29 @@ function (backend) {
 	   			var position = (_.indexOf(ids, id) !== -1);
 
 	   			if (position) {
-	   				index = position;
+	   				backend.get.oneChapter(id).then(function (chapter) {
+	   					index = position;
 
-	   				backend.get.oneMeetup(id).then(function (chapter) {
-	   					data[index] = chapter;
-	   					deferred.resolve(data[index]);
-	   				});	   				
+	   					helpers.downloadMarkdown(chapter).then(function () {
+	   						deferred.resolve(chapter);
+	   					});
+	   				});
 	   			}
 
 	   			return deferred.promise();
 	   		},
+	   		getFile : function (filename) {
+	   			return {
+	   				fromChapter : function (id) {
+	   					var deferred = $.Deferred();
 
-	   		getCurrent : function () {
-	   			var deferred = $.Deferred();
+	   					backend.get.file(filename).fromChapter(id).then(function (markdown) {
+	   						deferred.resolve(markdown);
+	   					});
 
-	   			if (typeof data[index] === 'string') {
-	   				var id = data[index];
-
-	   				backend.get.oneMeetup(id).then(function (chapter) {
-	   					data[index] = chapter;
-	   					deferred.resolve(data[index]);
-	   				});
-	   			} else {
-	   				deferred.resolve(data[index]);
+	   					return deferred.promise();
+	   				}
 	   			}
-
-	   			return deferred.promise();
-	   		},
-	   		getPrevious : function () {
-	   			var deferred = $.Deferred();
-
-	   			index = index - 1;
-
-	   			if (typeof data[index] === 'string') {
-	   				var id = data[index];
-
-	   				backend.get.oneMeetup(id).then(function (chapter) {
-	   					data[index] = chapter;
-	   					deferred.resolve(data[index]);
-	   				});
-	   			} else {
-	   				deferred.resolve(data[index]);
-	   			}
-
-	   			return deferred.promise();
-	   		},
-	   		getNext : function () {
-	   			var deferred = $.Deferred();
-
-	   			index = index + 1;
-
-	   			if (typeof data[index] === 'string') {
-	   				var id = data[index];
-
-	   				backend.get.oneMeetup(id).then(function (chapter) {
-	   					data[index] = chapter;
-	   					deferred.resolve(data[index]);
-	   				});
-	   			} else {
-	   				deferred.resolve(data[index]);
-	   			}
-
-	   			return deferred.promise();
 	   		}
 	   	}
 	}());

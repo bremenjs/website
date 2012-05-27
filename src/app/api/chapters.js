@@ -26,7 +26,7 @@ module.exports = function (app, repo) {
 		res.send(repo.get(req.params.id));
 	});
 
-	app.get('/meetup/:id/file/*', function(req, res) {
+	app.get('/chapter/:id/file/*', function(req, res) {
 		var root = repo.path(req.params.id);
 
 		res.sendfile(path.join(root, _.first(req.params)));

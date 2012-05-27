@@ -198,6 +198,31 @@ a[href='#info'] {
 		}
 	}
 
+	> nav { /* Slideshow controls. */
+		background:@bgcolor-info;
+
+		position:absolute;
+		right:120px;
+		top:0;
+
+		ul {
+		    li {
+		        display:inline;
+
+		        a {
+		            text-indent:-9999px;
+
+			        &:after {
+			       	    background:@bgcolor-info-button-icon-inactive;
+			       	    color:@textcolor-info-button-icon-inactive;
+
+			       	    .raphaelicon('=');
+			        }
+		        }
+		    }
+		}
+	}
+
 	> p { /* The chapter description. */
 		font-size:95%;
 		line-height:2em;

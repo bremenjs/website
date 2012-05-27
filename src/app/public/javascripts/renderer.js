@@ -17,7 +17,7 @@ define([
 ],
 function (templateSource) {
 
-	var $main, $loading, template;
+	var $main, $loading, $chapter, template;
 
 	$main = $('#main');
 
@@ -35,10 +35,14 @@ function (templateSource) {
 
 	return {
 		exec : function (chapter) {
-			var $chapter = template.compile({chapter: chapter});
+			if ($chapter) {
+				$chapter.remove();
+			}
+
+			$chapter = template.compile({chapter: chapter});
 			$chapter.hide();
 
-			$main.empty().append($chapter);
+			$main.append($chapter);
 
 			$loading.fadeOut('slow', function () {
 				$chapter.fadeIn();

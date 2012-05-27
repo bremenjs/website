@@ -25,7 +25,7 @@ var app = module.exports = express.createServer();
 var meta = {
     application:{
         name:'Bremen.js - Website',
-        version:'0.2.0',
+        version:'0.1.0',
         authors:[
         	{name:'Malte Legenhausen', email:'mlegenhausen@gmail.com'},
             {name:'André König', email:'andre.koenig@gmail.com'}

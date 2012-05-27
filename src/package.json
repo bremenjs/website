@@ -1,7 +1,7 @@
 {
     "name": "bremen.js"
   , "author": "Malte Legenhausen <mlegenhausen@gmail.com>, André König <andre.koenig@gmail.com>"
-  , "version": "0.1.0"
+  , "version": "0.2.0"
   , "private": true
   , "dependencies": {
       "express": "2.5.8",

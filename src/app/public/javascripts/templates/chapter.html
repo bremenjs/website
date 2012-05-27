@@ -10,13 +10,13 @@
 		<nav>
 			<ul>
 				<% if (chapter.previousId) { %>
-					<li>
+					<li class="previous">
 						<a href="/#/chapters/<%= chapter.previousId %>">Zurück</a>
 					</li>
 				<% } %>
 
 				<% if (chapter.nextId) { %>
-					<li>
+					<li class="next">
 						<a href="/#/chapters/<%= chapter.nextId %>">Vor</a>
 					</li>
 				<% } %>

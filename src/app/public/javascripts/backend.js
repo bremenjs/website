@@ -17,8 +17,8 @@ define([
 function () {
 	return (function () {
 		var urls = {
-			meetups: '/meetups',
-			meetup: '/meetup'
+			chapters: '/chapters',
+			chapter: '/chapter'
 		};
 
 		return  {

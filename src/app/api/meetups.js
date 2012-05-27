@@ -18,11 +18,11 @@ var _ = require('underscore');
 
 module.exports = function (app, repo) {
 	
-	app.get('/meetups', function (req, res) {
+	app.get('/chapters', function (req, res) {
 		res.send(repo.index);
 	});
 
-	app.get('/meetup/:id', function (req, res) {
+	app.get('/chapter/:id', function (req, res) {
 		res.send(repo.get(req.params.id));
 	});
 

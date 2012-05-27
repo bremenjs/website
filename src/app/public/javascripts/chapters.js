@@ -18,15 +18,15 @@ define([
 function (backend) {
 	return (function () {
 
-	  	var data = null,
+	  	var ids = null,
 	  		index = 0;
 
 	   	return {
 	   		load : function () {
 	   			var deferred = $.Deferred();
 
-	   			backend.get.allMeetups().then(function (ids) {
-	   				data = ids;
+	   			backend.get.allMeetups().then(function (chapterIds) {
+	   				ids = chapterIds;
 
 	   				deferred.resolve();
 	   			});
@@ -34,11 +34,28 @@ function (backend) {
 	   			return deferred.promise();
 	   		},
 	   		hasNext : function () {
-	   			return (data[index + 1]);
+	   			return (ids[index + 1]);
 	   		},
 	   		hasPrevious : function () {
-	   			return (data[index - 1]);
+	   			return (ids[index - 1]);
 	   		},
+	   		get : function (id) {
+	   			var deferred = $.Deferred();
+
+	   			var position = (_.indexOf(ids, id) !== -1);
+
+	   			if (position) {
+	   				index = position;
+
+	   				backend.get.oneMeetup(id).then(function (chapter) {
+	   					data[index] = chapter;
+	   					deferred.resolve(data[index]);
+	   				});	   				
+	   			}
+
+	   			return deferred.promise();
+	   		},
+
 	   		getCurrent : function () {
 	   			var deferred = $.Deferred();
 

@@ -83,8 +83,17 @@ function (backend) {
 
 	return (function () {
 
-	  	var ids = null,
-	  		index = 0;
+		var ids, index, _nextId, _previousId;
+
+		index = 0;
+
+		_nextId = function () {
+			return ids[index - 1];
+		};
+
+		_previousId = function () {
+			return ids[index + 1];
+		};
 
 	   	return {
 	   		load : function () {
@@ -98,12 +107,6 @@ function (backend) {
 
 	   			return deferred.promise();
 	   		},
-	   		getNextId : function () {
-	   			return (ids[index + 1]);
-	   		},
-	   		getPreviousId : function () {
-	   			return (ids[index - 1]);
-	   		},
 	   		exists : function (id) {
 	   			return (_.indexOf(ids, id) !== -1);
 	   		},
@@ -113,6 +116,11 @@ function (backend) {
 
 	   			backend.get.oneChapter(id).then(function (chapter) {
 	   				index = 0;
+
+	   				chapter.no = (ids.length - index);
+
+	   				chapter.previousId = _previousId();
+	   				chapter.nextId = _nextId();
 
 					helpers.downloadMarkdown(chapter).then(function () {
 						deferred.resolve(chapter);
@@ -124,11 +132,16 @@ function (backend) {
 	   		get : function (id) {
 	   			var deferred = $.Deferred();
 
-	   			var position = (_.indexOf(ids, id) !== -1);
+	   			var position = _.indexOf(ids, id);
 
-	   			if (position) {
+	   			if (position !== -1) {
 	   				backend.get.oneChapter(id).then(function (chapter) {
 	   					index = position;
+
+	   					chapter.no = (ids.length - index);
+
+	   					chapter.previousId = _previousId();
+	   					chapter.nextId = _nextId();
 
 	   					helpers.downloadMarkdown(chapter).then(function () {
 	   						deferred.resolve(chapter);

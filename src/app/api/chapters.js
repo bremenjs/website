@@ -19,7 +19,10 @@ var _ = require('underscore');
 module.exports = function (app, repo) {
 	
 	app.get('/chapters', function (req, res) {
-		res.send(repo.index);
+		var chapters = repo.index.sort(function (a, b) {
+			return b-a;
+		});
+		res.send(chapters);
 	});
 
 	app.get('/chapter/:id', function (req, res) {

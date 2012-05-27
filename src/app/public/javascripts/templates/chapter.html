@@ -6,6 +6,24 @@
 		<span class="location"><%= chapter.location %></span></p>
 	</header>
 
+	<% if (chapter.previousId || chapter.nextId) { %>
+		<nav>
+			<ul>
+				<% if (chapter.previousId) { %>
+					<li>
+						<a href="/#/chapters/<%= chapter.previousId %>">Zurück</a>
+					</li>
+				<% } %>
+
+				<% if (chapter.nextId) { %>
+					<li>
+						<a href="/#/chapters/<%= chapter.nextId %>">Vor</a>
+					</li>
+				<% } %>
+			</ul>
+		</nav>
+	<% } %>
+
 	<p><%= chapter.description %></p>
 
 	<div class="agenda">

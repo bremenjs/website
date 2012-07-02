@@ -305,6 +305,26 @@ a[href='#info'] {
 					color:@textcolor-chapter-talk-author;
 					display:block;
 					.font-helvetica;
+
+					ul {
+						display:inline-block;
+						list-style:none;
+						margin:0;
+						padding:0;
+
+						li {
+							display:inline;
+
+							&:after {
+								content: '&';
+								padding-left:5px;
+							}
+
+							&:last-child:after {
+								content:'';
+							}
+						}
+					}
 				}
 			}
 

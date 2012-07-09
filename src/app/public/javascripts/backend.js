@@ -17,32 +17,32 @@ define([
 function () {
 	return (function () {
 		var urls = {
-			meetups: '/meetups',
-			meetup: '/meetup'
+			chapters: '/chapters',
+			chapter: '/chapter'
 		};
 
 		return  {
 			get : {
-				allMeetups : function () {
+				allChapters : function () {
 					var deferred = $.Deferred();
 
-					$.getJSON(urls.meetups, deferred.resolve);
+					$.getJSON(urls.chapters, deferred.resolve);
 
 					return deferred.promise();
 				},
-				oneMeetup : function (id) {
+				oneChapter : function (id) {
 					var deferred = $.Deferred();
 
-					$.getJSON(urls.meetup + '/' + id, deferred.resolve);
+					$.getJSON(urls.chapter + '/' + id, deferred.resolve);
 
 					return deferred.promise();
 				},
 				file : function (name) {
 					return {
-						fromMeetup : function (id) {
+						fromChapter : function (id) {
 							var deferred = $.Deferred();
 
-							$.get(urls.meetup + '/' + id + '/file/' + name, deferred.resolve);
+							$.get(urls.chapter + '/' + id + '/file/' + name, deferred.resolve);
 
 							return deferred.promise();
 						}

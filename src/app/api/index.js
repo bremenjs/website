@@ -13,7 +13,7 @@
  */
 module.exports = function (app, repo, options) {
 
-	require('./meetups')(app, repo);
+	require('./chapters')(app, repo);
 	require('./hooks')(app, repo, options);
 
 };

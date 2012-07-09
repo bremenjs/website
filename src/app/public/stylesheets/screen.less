@@ -198,6 +198,63 @@ a[href='#info'] {
 		}
 	}
 
+	> nav { /* Slideshow controls. */
+		background:@bgcolor-info;
+		border:1px solid @bordercolor-info;
+		border-top:none;
+		color:@textcolor-info-content;
+		font-size:70%;
+		font-weight:normal;
+		line-height:20px;
+		padding:3px 10px 2px 10px;
+		position:absolute;
+		right:120px;
+		top:0;
+
+		ul {
+		    li {
+		        float:left;
+
+		        &.disabled {
+		        	opacity:.3;
+
+		        	a {
+		        		cursor:default;
+		        		pointer-events:none;
+		        	}
+		        }
+
+		        &.previous {
+		        	a:after {
+		        	    .raphaelicon('=');
+		        	}
+		        }
+
+		        &.next {
+		        	margin-right:15px;
+
+		        	a:after {
+		        	    .raphaelicon('<');
+		        	}
+		        }
+
+		        a {
+		        	display:block;
+		        	font-size:240%;
+
+		        	&:after {
+		        		color:#fff;
+		        		text-shadow:none;
+		        	}
+
+		        	span {
+		        		display:none;
+		        	}
+		        }
+		    }
+		}
+	}
+
 	> p { /* The chapter description. */
 		font-size:95%;
 		line-height:2em;
@@ -248,6 +305,26 @@ a[href='#info'] {
 					color:@textcolor-chapter-talk-author;
 					display:block;
 					.font-helvetica;
+
+					ul {
+						display:inline-block;
+						list-style:none;
+						margin:0;
+						padding:0;
+
+						li {
+							display:inline;
+
+							&:after {
+								content: '&';
+								padding-left:5px;
+							}
+
+							&:last-child:after {
+								content:'';
+							}
+						}
+					}
 				}
 			}
 

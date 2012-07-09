@@ -12,78 +12,40 @@
  *
  */
 require([
-	'backend',
-	"vendor/text!templates/chapter.html",
+	'chapters',
+	'renderer',
 	'vendor/order!vendor/libraries',
 	'vendor/order!plugins/own'
 ],
-function (backend, templateSource) {
+function (chapters, renderer) {
 
-	var mainNode = $('#main'),
-	    loadingNode = $('#loading');
+	var BremenjsRouter = Backbone.Router.extend({
+		routes: {
+			'chapters/:id': 'chapters',
+			'*path': 'home'
+		},
 
-	var template = (function () {
-		var compiled = _.template(templateSource);
+		home : function () {
+			chapters.current().then(function (chapter) {
+				renderer.exec(chapter);
+			});
+		},
 
-		return {
-			compile : function (data) {
-				return $(compiled(data));
+		chapters : function (id) {
+			if (chapters.exists(id)) {
+				chapters.get(id).then(function (chapter) {
+					renderer.exec(chapter);
+				});
+			} else {
+				// TODO: 404
 			}
 		}
-	}());
+	});
 
-	backend.get.allMeetups().then(function (ids) {
-		var firstMeetup = ids[0];
-
-		backend.get.oneMeetup(firstMeetup).then(function (details) {
-			details.no = 1; // Just for the first chapter.
-
-			var batch = [];
-
-			var markdownDownloader = (function (filename) {
-				var result;
-
-			    batch.push(function (callback) {
-			    	backend.get.file(filename).fromMeetup(firstMeetup)
-			    		.then(function (markdown) {
-			    			var converter = new Markdown.Converter();
-			    			result = converter.makeHtml(markdown);
-
-			    		   	callback();
-			    		});
-			   	});
-
-			   	return {
-			   		markdownToHTML: function () {
-			   			return result;
-			   		}
-			   	};
-			});
-
-			// Grab the markdown files from the server.
-			details.description = markdownDownloader(details.description);
-
-			for (var i = 0; i < details.topics.length; i++) {
-				details.topics[i].description = markdownDownloader(details.topics[i].description);
-			}
-
-			// Download all markdown files in a serie.
-			async.series(batch, function () {
-				// Push the markdown into the object for the template.
-				details.description = details.description.markdownToHTML();
-				for (var i = 0; i < details.topics.length; i++) {
-					details.topics[i].description = details.topics[i].description.markdownToHTML();
-				}
-
-				var chapterNode = template.compile({chapter: details});
-				chapterNode.hide();
-
-				mainNode.append(chapterNode);
-
-				loadingNode.fadeOut('slow', function () {
-					chapterNode.fadeIn();
-				});
-			});
-		});
+	// Load all meetups
+	chapters.load().then(function () {
+		new BremenjsRouter();
+		
+		Backbone.history.start();
 	});
 });

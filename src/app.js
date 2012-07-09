@@ -12,17 +12,16 @@
  *
  */
 
-var fs = require('fs');
-var path = require('path');
-
-var async = require('async');
-var express = require('express');
-var winston = require('winston');
-
-var Repository = require('./app/repo');
+var fs = require('fs')
+  , path = require('path')
+  , async = require('async')
+  , express = require('express')
+  , winston = require('winston')
+  , Repository = require('./app/repo');
 
 var app = module.exports = express.createServer();
 
+// TODO: Use pkginfo
 var meta = {
     application:{
         name:'Bremen.js - Website',

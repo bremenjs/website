@@ -18,15 +18,18 @@ var _ = require('underscore');
 
 module.exports = function (app, repo) {
 	
-	app.get('/meetups', function (req, res) {
-		res.send(repo.index);
+	app.get('/chapters', function (req, res) {
+		var chapters = repo.index.sort(function (a, b) {
+			return b-a;
+		});
+		res.send(chapters);
 	});
 
-	app.get('/meetup/:id', function (req, res) {
+	app.get('/chapter/:id', function (req, res) {
 		res.send(repo.get(req.params.id));
 	});
 
-	app.get('/meetup/:id/file/*', function(req, res) {
+	app.get('/chapter/:id/file/*', function(req, res) {
 		var root = repo.path(req.params.id);
 
 		res.sendfile(path.join(root, _.first(req.params)));

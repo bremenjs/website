@@ -45,9 +45,9 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
+    app.use(express.static(meta.application.chapterRoot));
     app.use(express.staticCache());
     app.use(express.static(__dirname + '/app/public'));
-    app.use(express.static(meta.application.chapterRoot));
 });
 
 app.configure('development', function(){
@@ -71,4 +71,4 @@ require('./app/api')(app, repo, {
 });
 
 app.listen(meta.application.port, '127.0.0.1');
-console.log(meta.application.name + " listening on port %d in %s mode", meta.application.port, app.settings.env);
+console.log(meta.application.name + " listening on port %d in %s mode", meta.applica, app.settings.env);

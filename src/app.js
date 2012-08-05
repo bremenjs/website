@@ -30,7 +30,7 @@ var meta = {
         	{name:'Malte Legenhausen', email:'mlegenhausen@gmail.com'},
             {name:'André König', email:'andre.koenig@gmail.com'}
         ],
-        port: process.env.PORT || 8080,
+        port: process.env.PORT || 8002,
         chapterRoot: process.env.CHAPTERS || process.cwd(),
         secret: 'bqlQ7xwJ3wWVVJE7QGJZNAgK'
     }
@@ -45,6 +45,7 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
+    app.use(express.staticCache());
     app.use(express.static(__dirname + '/app/public'));
     app.use(express.static(meta.application.chapterRoot));
 });
@@ -69,5 +70,5 @@ require('./app/api')(app, repo, {
     secret: meta.application.secret
 });
 
-app.listen(meta.application.port);
-console.log(meta.application.name + " listening on port %d in %s mode", app.address().port, app.settings.env);
+app.listen(meta.application.port, '127.0.0.1');
+console.log(meta.application.name + " listening on port %d in %s mode", meta.application.port, app.settings.env);

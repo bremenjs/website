@@ -71,4 +71,4 @@ require('./app/api')(app, repo, {
 });
 
 app.listen(meta.application.port, '127.0.0.1');
-console.log(meta.application.name + " listening on port %d in %s mode", meta.applica, app.settings.env);
+console.log(meta.application.name + " listening on port %d in %s mode", meta.application.port, app.settings.env);

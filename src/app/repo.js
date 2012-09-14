@@ -35,6 +35,10 @@ Repository.prototype.init = function() {
 		if (err) return winston.error(err);
 		winston.info('Loading chapters...');
 		self.load(function(err, chapters) {
+			if (err) {
+				console.log(err);
+				return;
+			}
 			self.createMapping(chapters);
 		    self.createIndex(chapters);
 		    winston.info('Chapters loading finished.');
@@ -70,11 +74,17 @@ Repository.prototype.load = function(callback) {
 	                        // look for chapter.json
 	                        fs.readFile(manifest, 'utf8', function(err, data) {
 	                            if (err) return callback(err);
-	                            var chapter = JSON.parse(data);
-	                            chapter.id = chapter.id.toLowerCase();
-	                            chapter.createdAt = stat.ctime;
-	                            self.paths[chapter.id] = dir;
-	                            winston.info('Chapter ' + chapter.id + ' wurde geladen.');
+	                            var chapter;
+	                            try {
+	                            	chapter = JSON.parse(data);
+	                            	chapter.id = chapter.id.toLowerCase();
+		                            chapter.createdAt = stat.ctime;
+		                            self.paths[chapter.id] = dir;
+		                            winston.info('Chapter ' + chapter.id + ' wurde geladen.');
+	                            } catch(err) {
+	                            	winston.error('Unable to load chapter from file ' + manifest);
+	                            	winston.error(err);
+	                            }
 	                            return callback(null, chapter);
 	                        });
 	                    } else {

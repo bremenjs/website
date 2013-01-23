@@ -89,8 +89,8 @@ function (backend) {
 
 		_nextId = function () {
 			console.log("next");
-			console.log(ids[index - 1]);
-			return ids[index - 1];
+			console.log(ids[index - 1] || ids[0]);
+			return ids[index - 1] || ids[0];
 		};
 
 		_previousId = function () {
@@ -105,7 +105,8 @@ function (backend) {
 
 	   			backend.get.allChapters().then(function (chapterIds) {
 	   				ids = chapterIds;
-
+	   				console.log('ids');
+	   				console.log(ids);
 	   				deferred.resolve();
 	   			});
 

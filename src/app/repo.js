@@ -69,7 +69,7 @@ Repository.prototype.load = function(callback) {
 	            if (stat.isDirectory() && file[0].indexOf('.') !== 1 ) {
 	                manifest = path.join(dir, 'chapter.json');
 	                // Check if a chapter.json exists
-	                path.exists(manifest, function(exists) {
+	                fs.exists(manifest, function(exists) {
 	                    if (exists) {
 	                        // look for chapter.json
 	                        fs.readFile(manifest, 'utf8', function(err, data) {

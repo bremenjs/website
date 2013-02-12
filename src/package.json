@@ -4,7 +4,7 @@
   , "version": "0.1.0"
   , "private": true
   , "dependencies": {
-      "express": "2.5.8",
+      "express": "3.x.x",
       "underscore": "1.x.x",
       "async": "0.x.x",
       "winston": "0.x.x"
